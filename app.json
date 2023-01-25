@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "CKClone",
-    "slug": "CKClone",
-    "version": "1.0.0",
+    "name": "RulersLegacy",
+    "slug": "RulersLegacy",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
