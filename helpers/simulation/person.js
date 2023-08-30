@@ -35,14 +35,16 @@ export default class Person {
         }
     }
 
-    static createRandomPerson() {
+    static createRandomPerson(gender = null, generateFamily = true) {
         let stats = {
             strength: Math.floor(Math.random() * (20 - 10 + 1)) + 10, 
             intelligence: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
             charisma: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
             leadership: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
         }
-        let gender = Math.random() < 0.5 ? 'male' : 'female';
+        if (!gender) {
+            gender = Math.random() < 0.5 ? 'male' : 'female';
+        }
         let age = Math.floor(Math.random() * 40) + 15;
 
         let properties = {
@@ -57,12 +59,22 @@ export default class Person {
             gender: gender,
             portrait: getRandomPortrait(gender),
             isPlayer: false,
-            eventHistory: [],
             activeEvent: null,
-            birthDate: getRandomDate(1066 - age)
+            birthDate: getRandomDate(1066 - age),
+            family: {
+                parents: [],
+                siblings: [],
+                children: []
+            },
+            eventHistory: [], // Always keep this last
         }
         
         let person = new Person(properties);
+        
+        if (generateFamily) {
+            person.generateFamily();
+        }
+
         return person;
     }
 
@@ -95,5 +107,22 @@ export default class Person {
     // Divorce with current spouse
     divorce(){
         
+    }
+
+    generateFamily() {
+        let mother = Person.createRandomPerson('female', false);
+        let father = Person.createRandomPerson('male', false);
+
+        mother.marry(father);
+        father.marry(mother);
+
+        let siblings = [];
+        let children = [];
+
+        this['family'] = {
+            parents: [mother, father],
+            siblings,
+            children
+        }
     }
 }

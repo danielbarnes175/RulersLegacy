@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { log } from '../helpers/debug';
 
 export default function Person({ person, onClose }) {
-  const DEBUG_MODE = true;
+  let [personViewVisible, setPersonViewVisible] = useState(false);
+  let [selectedPerson, setSelectedPerson] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -29,7 +31,6 @@ export default function Person({ person, onClose }) {
           <Image source={require('assets/icons/speak.png')} style={styles.icon} /><Text style={styles.property}> {person.stats.charisma}</Text>
         </View>
       </View>
-      <ScrollView>
       <View style={styles.traitsContainer}>
         <Text style={styles.h2}>Traits:</Text>
         <View style={styles.traits}>
@@ -38,15 +39,47 @@ export default function Person({ person, onClose }) {
             ))}
         </View>
       </View>
-      {DEBUG_MODE && (
-          <View style={styles.debugInfoContainer}>
-            {Object.entries(person).map(([key, value], index) => (
-              <Text key={index} style={styles.debugProperty}>
-                {key}: {JSON.stringify(value)}
-              </Text>
-            ))}
+      <View style={styles.familyTreeContainer}>
+        <Text style={styles.h2}>Family: </Text>
+        <View style={styles.familyBranch}>
+          <Text>Parents:</Text>
+          <View style={styles.branchMembers}>
+          {person.family.parents.map((familyMember, index) => (
+            <TouchableOpacity onPress={() => { setSelectedPerson(familyMember); setPersonViewVisible(true); }}>
+              <Image source={familyMember.portrait} style={styles.familyMember}></Image>
+              <Text>{familyMember.name}</Text>
+            </TouchableOpacity>
+          ))}
           </View>
-        )}
+          <View style={styles.familyBranch}>
+          <Text>Siblings:</Text>
+          <View style={styles.branchMembers}>
+          {person.family.siblings.map((familyMember, index) => (
+            <TouchableOpacity onPress={() => { setSelectedPerson(familyMember); setPersonViewVisible(true); }}>
+              <Image source={familyMember.portrait} style={styles.familyMember}></Image>
+              <Text>{familyMember.name}</Text>
+            </TouchableOpacity>
+          ))}
+          </View>
+          </View>
+          <View style={styles.familyBranch}>
+          <Text>Children:</Text>
+          <View style={styles.branchMembers}>
+          {person.family.children.map((familyMember, index) => (
+            <TouchableOpacity onPress={() => { setSelectedPerson(familyMember); setPersonViewVisible(true); }}>
+              <Image source={familyMember.portrait} style={styles.familyMember}></Image>
+              <Text>{familyMember.name}</Text>
+            </TouchableOpacity>
+          ))}
+          </View>
+          </View>
+        </View>
+      </View>
+      
+      <ScrollView style={styles.infoContainer}>
+        <Text style={styles.debugContainer}>
+          {log(person)}
+        </Text>
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={onClose}>
@@ -132,9 +165,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   traitsContainer: {
-    height: '20%',
+    height: '8%',
     width: '100%',
-    paddingHorizontal: '3%'
+    paddingHorizontal: '3%',
+    marginBottom: '5%'
   },
   traits: {
     flexDirection:'row', flexWrap:'wrap'
@@ -142,6 +176,20 @@ const styles = StyleSheet.create({
   trait: {
     width: 32,
     height: 32,
+    borderRadius: 20,
+    margin: 5
+  },
+  familyTreeContainer: {
+    height: '20%',
+    width: '100%',
+    paddingHorizontal: '3%'
+  },
+  branchMembers: {
+    flexDirection:'row', flexWrap:'wrap'
+  },
+  familyMember: {
+    width: 45,
+    height: 45,
     borderRadius: 20,
     margin: 5
   },
@@ -158,5 +206,11 @@ const styles = StyleSheet.create({
   icon: {
     width: 32,
     height: 32
+  },
+  debugContainer: {
+    width: '100%',
+  },
+  infoContainer: {
+    marginBottom: '25%',
   }
 });
