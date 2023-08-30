@@ -29,7 +29,6 @@ export class World {
             
             let community = new Community(params);
             this.communities.push(community);
-            
         }
     }
 
@@ -43,7 +42,6 @@ export class World {
 
         // player is simulated as part of the community they are in. Eventually we might want a separate case?
         // this.player.simulate();
-        console.log(this.player);
         this.date = getDate();
     }
 }

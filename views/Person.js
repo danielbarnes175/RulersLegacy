@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, Image, Button, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 
 export default function Person({ person, onClose }) {
+  const DEBUG_MODE = true;
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('assets/textures/paper.webp')} style={styles.bg}>
@@ -27,6 +29,7 @@ export default function Person({ person, onClose }) {
           <Image source={require('assets/icons/speak.png')} style={styles.icon} /><Text style={styles.property}> {person.stats.charisma}</Text>
         </View>
       </View>
+      <ScrollView>
       <View style={styles.traitsContainer}>
         <Text style={styles.h2}>Traits:</Text>
         <View style={styles.traits}>
@@ -35,6 +38,16 @@ export default function Person({ person, onClose }) {
             ))}
         </View>
       </View>
+      {DEBUG_MODE && (
+          <View style={styles.debugInfoContainer}>
+            {Object.entries(person).map(([key, value], index) => (
+              <Text key={index} style={styles.debugProperty}>
+                {key}: {JSON.stringify(value)}
+              </Text>
+            ))}
+          </View>
+        )}
+      </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={onClose}>
           <Text style={styles.buttonText}>Close</Text>
