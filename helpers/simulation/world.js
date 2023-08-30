@@ -2,6 +2,9 @@ import Person from './person';
 import Community from './community';
 import { getDate } from './time';
 
+const NUMBER_OF_COMMUNITIES = 20;
+const PEOPLE_PER_COMMUNITY = 20;
+
 export class World {
     constructor() {
         this.communities = [];
@@ -12,9 +15,9 @@ export class World {
     }
 
     populateWorld() {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < NUMBER_OF_COMMUNITIES; i++) {
             let members = [];
-            for (let j = 0; j < 20; j++) {
+            for (let j = 0; j < PEOPLE_PER_COMMUNITY; j++) {
                 let person = Person.createRandomPerson();
                 members.push(person);
             }
@@ -38,7 +41,9 @@ export class World {
             community.simulate();
         });
 
-        this.player.simulate();
+        // player is simulated as part of the community they are in. Eventually we might want a separate case?
+        // this.player.simulate();
+        console.log(this.player);
         this.date = getDate();
     }
 }

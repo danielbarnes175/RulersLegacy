@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState,  useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
-import Footer from './Footer';
+import GameFooter from './GameFooter';
 import * as time from '../helpers/simulation/time';
 import { World } from '../helpers/simulation/world';
 import Person from '../helpers/simulation/person';
@@ -49,7 +49,7 @@ export default function GameScreen({ navigation, route}) {
     <View style={styles.container}>
       <Header style={styles.header} world={world} />
       <Main style={styles.main} eventHistory={clone(world.player.eventHistory)} modalVisible={modalVisible} currentEvent={world.player.activeEvent} handleClose={handleClose} />
-      <Footer style={styles.footer} />
+      <GameFooter style={styles.footer} />
     </View>
   );
 }

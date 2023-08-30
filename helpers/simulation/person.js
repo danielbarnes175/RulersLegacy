@@ -5,6 +5,9 @@ import { getRandomName } from '../names';
 import { getRandomTraits } from '../traits';
 import { getRandomPortrait } from '../getRandomPortrait';
 
+const CHANCE_FOR_NPC_EVENT = 0.02; // 2%
+const CHANCE_FOR_PLAYER_EVENT = 0.1; // 10%
+
 export default class Person {
     constructor(personProperties) {
         for (const key in personProperties) {
@@ -16,11 +19,13 @@ export default class Person {
 
     // Generate and simulate events specific to a person.
     simulate() {
-        const randomChance = Math.floor(Math.random() * 5);
-        let newEvent;
-        if (randomChance === 1) {
+        const randomChance = Math.floor(Math.random() * 100);
+        let chancePercentage = (this.isPlayer ? CHANCE_FOR_PLAYER_EVENT : CHANCE_FOR_NPC_EVENT) * 100;
+        if (this.isPlayer) console.log(this.isPlayer);
+
+        if (randomChance <= chancePercentage) {
           // Generate and simulate new event
-          newEvent = events.generateEvent();
+          let newEvent = events.generateEvent();
           newEvent.timeString = getDate();
           events.simulateEvent(newEvent, this);
         }

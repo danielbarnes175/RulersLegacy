@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import TimeControl from './components/TimeControl'
 
-export function Footer() {
+export function GameFooter() {
   return (
     <View style={styles.container}>
       <TimeControl></TimeControl>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Footer;
+export default GameFooter;

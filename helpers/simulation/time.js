@@ -6,7 +6,7 @@ let timerIsRunning = false;
 let updateCallback;
 let worldReference;
 
-let startDate = '1/1/1066';
+const START_DATE = '1/1/1066';
 let daysProgressed = 0;
 
 export function startTimer(callback, world) {
@@ -52,7 +52,7 @@ export function setSpeed(newSpeed) {
 }
 
 export function getDate() {
-  const date = new Date(startDate);
+  const date = new Date(START_DATE);
   date.setDate(date.getDate() + daysProgressed);
   return date.toDateString();
 }
@@ -72,7 +72,7 @@ export function getRandomDate(year) {
 }
 
 export function isItThisDay(date) {
-  const currentDate = new Date(startDate);
+  const currentDate = new Date(START_DATE);
   currentDate.setDate(date.getDate() + daysProgressed);
 
   let currentDateMonth = currentDate.getUTCMonth() + 1;
