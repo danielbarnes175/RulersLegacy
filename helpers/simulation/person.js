@@ -35,6 +35,7 @@ export default class Person {
             strength: Math.floor(Math.random() * (20 - 10 + 1)) + 10, 
             intelligence: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
             charisma: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
+            leadership: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
         }
         let gender = Math.random() < 0.5 ? 'male' : 'female';
         let age = Math.floor(Math.random() * 40) + 15;

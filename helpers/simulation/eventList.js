@@ -3,7 +3,7 @@ export default events = [
       id: 'event_find_pet',
       name: 'Find pet',
       description: 'You have found a cute pet!',
-      type: 'blah',
+      type: 'choice',
       choices: [
         {
           text: 'Keep the pet',
@@ -24,5 +24,4 @@ export default events = [
       type: 'automatic',
       effect: (person) => {},
     },
-    // Add more events here
 ];
