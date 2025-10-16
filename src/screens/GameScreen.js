@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import Header from "./Header";
 import Main from "./Main";
 import GameFooter from "./GameFooter";
@@ -52,6 +53,15 @@ export default function GameScreen({ navigation, route }) {
     </View>
   );
 }
+
+GameScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      playerParams: PropTypes.object.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

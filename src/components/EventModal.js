@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { StyleSheet, Button, View, Text } from "react-native";
+import PropTypes from "prop-types";
 
 const EventModal = React.memo(({ visible, event, handleClose, player }) => {
   const handleChoicePress = useCallback((choice) => {
@@ -43,6 +44,22 @@ const EventModal = React.memo(({ visible, event, handleClose, player }) => {
 });
 
 EventModal.displayName = 'EventModal';
+
+EventModal.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  event: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    choices: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string.isRequired,
+        effect: PropTypes.func.isRequired,
+      })
+    ),
+  }),
+  handleClose: PropTypes.func.isRequired,
+  player: PropTypes.object.isRequired,
+};
 
 export default EventModal;
 

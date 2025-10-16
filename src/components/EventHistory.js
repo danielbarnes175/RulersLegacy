@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import PropTypes from "prop-types";
 
 const EventHistory = React.memo(({ eventHistory }) => {
   const sortedEvents = useMemo(() => {
@@ -21,6 +22,20 @@ const EventHistory = React.memo(({ eventHistory }) => {
 });
 
 EventHistory.displayName = 'EventHistory';
+
+EventHistory.propTypes = {
+  eventHistory: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      timeString: PropTypes.string,
+      description: PropTypes.string.isRequired,
+    })
+  ),
+};
+
+EventHistory.defaultProps = {
+  eventHistory: [],
+};
 
 export default EventHistory;
 
