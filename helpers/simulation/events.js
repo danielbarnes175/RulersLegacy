@@ -3,25 +3,40 @@ import { stopTimer } from "./time";
 import events from "./eventList";
 
 export const simulateEvent = (event, person) => {
-  // TODO
-  if (event.type === "choice") {
-    if (person.isPlayer) {
-      person.activeEvent = event;
-      stopTimer();
-    } else {
-      // randomly pick a choice for NPCs
-      if (event.choices && event.choices.length > 0) {
-        const randomChoice =
-          event.choices[Math.floor(Math.random() * event.choices.length)];
-        randomChoice.effect(person);
+  try {
+    if (!event || !person) {
+      console.warn('simulateEvent called with missing event or person');
+      return;
+    }
+
+    if (event.type === "choice") {
+      if (person.isPlayer) {
+        person.activeEvent = event;
+        stopTimer();
+      } else {
+        if (event.choices && event.choices.length > 0) {
+          const randomChoice =
+            event.choices[Math.floor(Math.random() * event.choices.length)];
+          if (randomChoice.effect && typeof randomChoice.effect === 'function') {
+            randomChoice.effect(person);
+          }
+        }
       }
     }
-  }
-  if (event.type === "automatic") {
-    event.effect(person);
-  }
+    if (event.type === "automatic") {
+      if (event.effect && typeof event.effect === 'function') {
+        event.effect(person);
+      }
+    }
 
-  person.eventHistory.push(event);
+    if (person.eventHistory && Array.isArray(person.eventHistory)) {
+      person.eventHistory.push(event);
+    }
+  } catch (error) {
+    console.error('Error simulating event:', error);
+    console.error('Event:', event);
+    console.error('Person:', person?.name || 'Unknown');
+  }
 };
 
 export const generateEvent = () => {

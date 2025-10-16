@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,7 @@ import CharacterCustomizer from "./views/CharacterCustomizer";
 
 export default function App() {
   return (
-    <>
+    <ErrorBoundary>
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator
@@ -33,9 +34,16 @@ export default function App() {
             name="CustomCharacter"
             component={CharacterCustomizer}
           />
-          <Stack.Screen name="GameScreen" component={GameScreen} />
+          <Stack.Screen
+            name="GameScreen"
+            component={(props) => (
+              <ErrorBoundary showBackButton onBack={() => props.navigation.navigate('TitleScreen')}>
+                <GameScreen {...props} />
+              </ErrorBoundary>
+            )}
+          />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </ErrorBoundary>
   );
 }
