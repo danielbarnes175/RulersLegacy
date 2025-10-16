@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
-import Person from "../services/simulation/person";
+import PropTypes from "prop-types";
 
 const CharacterSelection = ({ navigation }) => {
   const handleRandomPress = () => {
-    let playerParams = {
+    const playerParams = {
       generateRandomPlayer: true,
     };
     navigation.navigate("GameScreen", { playerParams });
@@ -24,6 +23,12 @@ const CharacterSelection = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
+};
+
+CharacterSelection.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({

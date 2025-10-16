@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, ScrollView, View, Text } from "react-native";
+import PropTypes from "prop-types";
 import EventHistory from "../components/EventHistory";
 import EventModal from "../components/EventModal";
 
-export default function Main({
+const Main = React.memo(({
   eventHistory,
   modalVisible,
   currentEvent,
   handleClose,
   player,
-}) {
+}) => {
   return (
     <View style={styles.scrollView}>
       <Text style={styles.header}>Events</Text>
@@ -24,7 +25,19 @@ export default function Main({
       />
     </View>
   );
-}
+});
+
+Main.displayName = 'Main';
+
+Main.propTypes = {
+  eventHistory: PropTypes.array.isRequired,
+  modalVisible: PropTypes.bool.isRequired,
+  currentEvent: PropTypes.object,
+  handleClose: PropTypes.func.isRequired,
+  player: PropTypes.object.isRequired,
+};
+
+export default Main;
 
 const styles = StyleSheet.create({
   scrollView: {

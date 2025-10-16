@@ -50,7 +50,7 @@ export const useGameState = (playerParams) => {
     }, []);
 
     const worldStats = useMemo(() => {
-        if (!world || !world.communities) return null;
+        if (!world || !world.communities) { return null; }
 
         return {
             totalPopulation: world.communities.reduce((sum, community) =>
@@ -58,7 +58,7 @@ export const useGameState = (playerParams) => {
             communitiesCount: world.communities.length,
             currentDate: world.date
         };
-    }, [world.date, world.communities]);
+    }, [world]);
 
     return {
         player,

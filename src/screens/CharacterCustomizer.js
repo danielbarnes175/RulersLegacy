@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
-import Person from "../services/simulation/person";
+import { Text, View, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
 
 const CharacterCustomizer = ({ navigation }) => {
   const handleCustomPress = () => {
-    let playerParams = {
+    const playerParams = {
       generateRandomPlayer: false,
       playerConfig: {
         // Insert player config;
@@ -20,6 +19,12 @@ const CharacterCustomizer = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
+};
+
+CharacterCustomizer.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default CharacterCustomizer;

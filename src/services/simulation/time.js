@@ -12,7 +12,7 @@ class GameTimer {
   }
 
   start(callback, world) {
-    if (this.isRunning) return;
+    if (this.isRunning) {return;}
 
     this.isRunning = true;
     this.updateCallback = callback;
@@ -81,7 +81,7 @@ export function getDate() {
 
 export function getRandomDate(year) {
   let maxDay = 31;
-  let month = Math.floor(Math.random() * 12) + 1;
+  const month = Math.floor(Math.random() * 12) + 1;
 
   if (month === 2) {
     maxDay = 28;
@@ -97,14 +97,10 @@ export function isItThisDay(date) {
   const currentDate = new Date(GAME_CONFIG.WORLD.START_DATE);
   currentDate.setDate(date.getDate() + daysProgressed);
 
-  let currentDateMonth = currentDate.getUTCMonth() + 1;
-  let currentDateDay = currentDate.getUTCDate();
-  let dateMonth = date.getUTCMonth() + 1;
-  let dateDay = date.getUTCDate();
+  const currentDateMonth = currentDate.getUTCMonth() + 1;
+  const currentDateDay = currentDate.getUTCDate();
+  const dateMonth = date.getUTCMonth() + 1;
+  const dateDay = date.getUTCDate();
 
   return currentDateMonth === dateMonth && currentDateDay === dateDay;
-}
-
-export function isTimerRunning() {
-  return timerIsRunning;
 }

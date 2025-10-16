@@ -42,8 +42,8 @@ export const simulateEvent = (event, person) => {
 
 export const generateEvent = () => {
   const eventIndex = Math.floor(Math.random() * events.length);
-  let event = events[eventIndex];
-  let newEvent = clone(event);
+  const event = events[eventIndex];
+  const newEvent = clone(event);
   newEvent.timestamp = Date.now();
   return newEvent;
 };

@@ -27,10 +27,10 @@ const EventModal = React.memo(({ visible, event, handleClose, player }) => {
     >
       <View style={styles.modalView}>
         <Text style={styles.title}>{event.name}</Text>
-        <View style={styles.divider}></View>
+        <View style={styles.divider} />
         <Text>{event.description}</Text>
-        <Text></Text>
-        <Text></Text>
+        <Text />
+        <Text />
         {event.choices?.map((choice, i) => (
           <Button
             key={i}

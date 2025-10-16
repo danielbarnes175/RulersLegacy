@@ -14,18 +14,18 @@ export class World {
 
   populateWorld() {
     for (let i = 0; i < GAME_CONFIG.WORLD.NUMBER_OF_COMMUNITIES; i++) {
-      let members = [];
+      const members = [];
       for (let j = 0; j < GAME_CONFIG.WORLD.PEOPLE_PER_COMMUNITY; j++) {
-        let person = Person.createRandomPerson();
+        const person = Person.createRandomPerson();
         members.push(person);
       }
 
-      let params = {
+      const params = {
         id: i,
         people: members,
       };
 
-      let community = new Community(params);
+      const community = new Community(params);
       this.communities.push(community);
     }
   }

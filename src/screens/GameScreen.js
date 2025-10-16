@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Header from "./Header";
 import Main from "./Main";

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -46,6 +47,17 @@ class ErrorBoundary extends React.Component {
         return this.props.children;
     }
 }
+
+ErrorBoundary.propTypes = {
+    showBackButton: PropTypes.bool,
+    onBack: PropTypes.func,
+    children: PropTypes.node.isRequired,
+};
+
+ErrorBoundary.defaultProps = {
+    showBackButton: false,
+    onBack: null,
+};
 
 const styles = StyleSheet.create({
     container: {

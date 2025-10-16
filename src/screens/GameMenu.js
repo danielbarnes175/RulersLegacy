@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import PropTypes from "prop-types";
 import PeopleList from "./PeopleList";
 import CommunityList from "./CommunityList";
 import paperTexture from "assets/textures/paper.webp";
@@ -22,11 +23,12 @@ import cultureIcon from "assets/icons/culture.png";
 import militaryIcon from "assets/icons/military.png";
 import rightArrow from "assets/rightArrow.png";
 
-export default function GameMenu({ world, onClose }) {
+const GameMenu = ({ world, onClose }) => {
   const [worldViewVisible, setWorldViewVisible] = useState(false);
   const [communityViewVisible, setCommunityViewVisible] = useState(false);
   const [decisionViewVisible, setDecisionViewVisible] = useState(false);
-  const [menuOptions, setMenuOptions] = useState([
+
+  const menuOptions = useMemo(() => [
     {
       title: "World",
       subheading: "See relations with other communities",
@@ -75,7 +77,7 @@ export default function GameMenu({ world, onClose }) {
       image: militaryIcon,
       onPress: () => handleMenuItemPress("Military"),
     },
-  ]);
+  ], []);
 
   const handleMenuItemPress = (category) => {
     switch (category) {
@@ -86,10 +88,10 @@ export default function GameMenu({ world, onClose }) {
         setCommunityViewVisible(true);
         break;
       case "Decisions":
-        setDecisionsViewVisible(true);
+        setDecisionViewVisible(true);
         break;
       case "SaveAndQuit":
-        setSaveAndQuitVisible(true);
+        // TODO: Implement save and quit functionality
         break;
       default:
         break;
@@ -149,7 +151,16 @@ export default function GameMenu({ world, onClose }) {
       </ImageBackground>
     </View>
   );
-}
+};
+
+GameMenu.propTypes = {
+  world: PropTypes.shape({
+    communities: PropTypes.array.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default GameMenu;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
-const TitleScreen = ({ navigation }) => {
+const TitleScreen = React.memo(({ navigation }) => {
   const handleNewGamePress = () => {
     navigation.navigate("CharacterSelection");
   };
@@ -20,7 +21,17 @@ const TitleScreen = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
+});
+
+TitleScreen.displayName = 'TitleScreen';
+
+TitleScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
+
+export default TitleScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -45,5 +56,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default TitleScreen;

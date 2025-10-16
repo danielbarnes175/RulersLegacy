@@ -18,12 +18,12 @@ export default class Person {
   // Generate and simulate events specific to a person.
   simulate() {
     const randomChance = Math.floor(Math.random() * 100);
-    let chancePercentage =
+    const chancePercentage =
       (this.isPlayer ? GAME_CONFIG.EVENTS.CHANCE_FOR_PLAYER_EVENT : GAME_CONFIG.EVENTS.CHANCE_FOR_NPC_EVENT) * 100;
 
     if (randomChance <= chancePercentage) {
       // Generate and simulate new event
-      let newEvent = events.generateEvent();
+      const newEvent = events.generateEvent();
       newEvent.timeString = getDate();
       events.simulateEvent(newEvent, this);
     }
@@ -35,7 +35,7 @@ export default class Person {
 
   static createRandomPerson(gender = null, generateFamily = true) {
     const statRange = GAME_CONFIG.CHARACTERS.MAX_STAT - GAME_CONFIG.CHARACTERS.MIN_STAT + 1;
-    let stats = {
+    const stats = {
       strength: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
       intelligence: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
       charisma: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
@@ -45,9 +45,9 @@ export default class Person {
       gender = Math.random() < 0.5 ? GENDERS.MALE : GENDERS.FEMALE;
     }
     const ageRange = GAME_CONFIG.CHARACTERS.MAX_AGE - GAME_CONFIG.CHARACTERS.MIN_AGE;
-    let age = Math.floor(Math.random() * ageRange) + GAME_CONFIG.CHARACTERS.MIN_AGE;
+    const age = Math.floor(Math.random() * ageRange) + GAME_CONFIG.CHARACTERS.MIN_AGE;
 
-    let properties = {
+    const properties = {
       name: getRandomName(gender),
       age: age,
       gold: Math.floor(Math.random() * GAME_CONFIG.CHARACTERS.MAX_GOLD),
@@ -69,7 +69,7 @@ export default class Person {
       eventHistory: [], // Always keep this last
     };
 
-    let person = new Person(properties);
+    const person = new Person(properties);
 
     if (generateFamily) {
       person.generateFamily();
@@ -79,11 +79,11 @@ export default class Person {
   }
 
   static createRandomChild(parents, age) {
-    let properties = {}; // TODO
+    const properties = {}; // TODO
     properties.age = age;
     properties.parents = parents;
 
-    let person = new Person(properties);
+    const person = new Person(properties);
     return person;
   }
 
@@ -106,16 +106,16 @@ export default class Person {
   divorce() { }
 
   generateFamily() {
-    let mother = Person.createRandomPerson("female", false);
-    let father = Person.createRandomPerson("male", false);
+    const mother = Person.createRandomPerson("female", false);
+    const father = Person.createRandomPerson("male", false);
 
     mother.marry(father);
     father.marry(mother);
 
-    let siblings = [];
-    let children = [];
+    const siblings = [];
+    const children = [];
 
-    this["family"] = {
+    this.family = {
       parents: [mother, father],
       siblings,
       children,

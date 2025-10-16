@@ -9,17 +9,18 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import PropTypes from "prop-types";
 import Person from "./Person";
 import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../helpers/simulation/time";
+} from "../services/simulation/time";
 import paperTexture from "assets/textures/paper.webp";
 
-export default function PeopleList({ community, onClose }) {
-  let [personViewVisible, setPersonViewVisible] = useState(false);
-  let [selectedPerson, setSelectedPerson] = useState(null);
+const PeopleList = React.memo(({ community, onClose }) => {
+  const [personViewVisible, setPersonViewVisible] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -39,7 +40,7 @@ export default function PeopleList({ community, onClose }) {
                   <Image
                     source={person.portrait}
                     style={styles.portrait}
-                  ></Image>
+                  />
                   <Text>{person.name}</Text>
                 </TouchableOpacity>
               </View>
@@ -65,7 +66,23 @@ export default function PeopleList({ community, onClose }) {
       </ImageBackground>
     </View>
   );
-}
+});
+
+PeopleList.displayName = 'PeopleList';
+
+PeopleList.propTypes = {
+  community: PropTypes.shape({
+    people: PropTypes.arrayOf(
+      PropTypes.shape({
+        portrait: PropTypes.any.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default PeopleList;
 
 const styles = StyleSheet.create({
   container: {

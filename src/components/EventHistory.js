@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import PropTypes from "prop-types";
 
 const EventHistory = React.memo(({ eventHistory }) => {
@@ -38,5 +38,3 @@ EventHistory.defaultProps = {
 };
 
 export default EventHistory;
-
-const styles = StyleSheet.create({});

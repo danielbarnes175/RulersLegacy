@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,16 +7,17 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import PropTypes from "prop-types";
 import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../helpers/simulation/time";
+} from "../services/simulation/time";
 import Person from "./Person";
 import GameMenu from "./GameMenu";
 import burgerIcon from "../assets/burger.png";
 
-export default function Header({ world }) {
+const Header = ({ world }) => {
   const [playerProfileVisible, setPlayerProfileVisible] = useState(false);
   const [menuListVisible, setMenuListVisible] = useState(false);
 
@@ -27,7 +28,7 @@ export default function Header({ world }) {
           stopTimer();
           setPlayerProfileVisible(true);
         }}
-        style={{ position: "absolute", left: 30 }}
+        style={styles.leftButton}
       >
         <Image source={world.player.portrait} style={styles.picture} />
       </TouchableOpacity>
@@ -46,7 +47,7 @@ export default function Header({ world }) {
         <Text>{world.player.name}</Text>
         <Text>{world.date}</Text>
       </View>
-      <View style={{ position: "absolute", right: 15 }}>
+      <View style={styles.rightButton}>
         <TouchableOpacity
           onPress={() => {
             stopTimer();
@@ -69,7 +70,19 @@ export default function Header({ world }) {
       </View>
     </View>
   );
-}
+};
+
+Header.propTypes = {
+  world: PropTypes.shape({
+    player: PropTypes.shape({
+      portrait: PropTypes.any.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default Header;
 
 const styles = StyleSheet.create({
   container: {
@@ -89,5 +102,13 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginLeft: "auto", // aligns the icon to the right
+  },
+  leftButton: {
+    position: "absolute",
+    left: 30,
+  },
+  rightButton: {
+    position: "absolute",
+    right: 15,
   },
 });

@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  Image,
   ScrollView,
   Modal,
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import PropTypes from "prop-types";
 import PeopleList from "./PeopleList";
 import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../helpers/simulation/time";
+} from "../services/simulation/time";
 import paperTexture from "assets/textures/paper.webp";
 
-export default function CommunityList({ world, onClose }) {
-  let [communityViewVisible, setCommunityViewVisible] = useState(false);
-  let [selectedCommunity, setSelectedCommunity] = useState(null);
+const CommunityList = ({ world, onClose }) => {
+  const [communityViewVisible, setCommunityViewVisible] = useState(false);
+  const [selectedCommunity, setSelectedCommunity] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -61,7 +61,20 @@ export default function CommunityList({ world, onClose }) {
       </ImageBackground>
     </View>
   );
-}
+};
+
+CommunityList.propTypes = {
+  world: PropTypes.shape({
+    communities: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default CommunityList;
 
 const styles = StyleSheet.create({
   container: {

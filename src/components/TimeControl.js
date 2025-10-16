@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import * as time from "../services/simulation/time";
 import { GAME_CONFIG } from "../config/gameConfig";
 

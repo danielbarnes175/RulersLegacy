@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
   Text,
   Image,
-  Button,
   TouchableOpacity,
   ImageBackground,
   ScrollView,
 } from "react-native";
+import PropTypes from "prop-types";
 import { log } from "../utils/debug";
 import paperTexture from "assets/textures/paper.webp";
 import strengthIcon from "assets/icons/strength.png";
 import lightbulbIcon from "assets/icons/lightbulb.png";
 import speakIcon from "assets/icons/speak.png";
 
-export default function Person({ person, onClose }) {
-  let [personViewVisible, setPersonViewVisible] = useState(false);
-  let [selectedPerson, setSelectedPerson] = useState(null);
+const Person = React.memo(({ person, onClose }) => {
 
   return (
     <View style={styles.container}>
@@ -64,36 +62,26 @@ export default function Person({ person, onClose }) {
             <Text>Parents:</Text>
             <View style={styles.branchMembers}>
               {person.family.parents.map((familyMember, index) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSelectedPerson(familyMember);
-                    setPersonViewVisible(true);
-                  }}
-                >
+                <View key={index}>
                   <Image
                     source={familyMember.portrait}
                     style={styles.familyMember}
-                  ></Image>
+                  />
                   <Text>{familyMember.name}</Text>
-                </TouchableOpacity>
+                </View>
               ))}
             </View>
             <View style={styles.familyBranch}>
               <Text>Siblings:</Text>
               <View style={styles.branchMembers}>
                 {person.family.siblings.map((familyMember, index) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setSelectedPerson(familyMember);
-                      setPersonViewVisible(true);
-                    }}
-                  >
+                  <View key={index}>
                     <Image
                       source={familyMember.portrait}
                       style={styles.familyMember}
-                    ></Image>
+                    />
                     <Text>{familyMember.name}</Text>
-                  </TouchableOpacity>
+                  </View>
                 ))}
               </View>
             </View>
@@ -101,18 +89,13 @@ export default function Person({ person, onClose }) {
               <Text>Children:</Text>
               <View style={styles.branchMembers}>
                 {person.family.children.map((familyMember, index) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setSelectedPerson(familyMember);
-                      setPersonViewVisible(true);
-                    }}
-                  >
+                  <View key={index}>
                     <Image
                       source={familyMember.portrait}
                       style={styles.familyMember}
-                    ></Image>
+                    />
                     <Text>{familyMember.name}</Text>
-                  </TouchableOpacity>
+                  </View>
                 ))}
               </View>
             </View>
@@ -130,7 +113,53 @@ export default function Person({ person, onClose }) {
       </ImageBackground>
     </View>
   );
-}
+});
+
+Person.displayName = 'Person';
+
+Person.propTypes = {
+  person: PropTypes.shape({
+    portrait: PropTypes.any.isRequired,
+    name: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired,
+    gender: PropTypes.string.isRequired,
+    gold: PropTypes.number.isRequired,
+    prestige: PropTypes.number.isRequired,
+    stats: PropTypes.shape({
+      strength: PropTypes.number.isRequired,
+      intelligence: PropTypes.number.isRequired,
+      charisma: PropTypes.number.isRequired,
+    }).isRequired,
+    traits: PropTypes.arrayOf(
+      PropTypes.shape({
+        image: PropTypes.any.isRequired,
+      })
+    ).isRequired,
+    family: PropTypes.shape({
+      parents: PropTypes.arrayOf(
+        PropTypes.shape({
+          portrait: PropTypes.any.isRequired,
+          name: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+      siblings: PropTypes.arrayOf(
+        PropTypes.shape({
+          portrait: PropTypes.any.isRequired,
+          name: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+      children: PropTypes.arrayOf(
+        PropTypes.shape({
+          portrait: PropTypes.any.isRequired,
+          name: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default Person;
 
 const styles = StyleSheet.create({
   container: {
