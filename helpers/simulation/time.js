@@ -1,56 +1,75 @@
-let speed = 1;
-let timer;
-let timerIsRunning = false;
-
-// Need to keep references to these in order to restart their simulation after restarting timer
-let updateCallback;
-let worldReference;
-
 const START_DATE = "1/1/1066";
 let daysProgressed = 0;
 
+class GameTimer {
+  constructor() {
+    this.speed = 1;
+    this.timer = null;
+    this.isRunning = false;
+    this.updateCallback = null;
+    this.worldReference = null;
+  }
+
+  start(callback, world) {
+    if (this.isRunning) return;
+
+    this.isRunning = true;
+    this.updateCallback = callback;
+    this.worldReference = world;
+
+    this.timer = setInterval(() => {
+      const currentWorld = world || this.worldReference;
+      if (currentWorld?.player?.activeEvent) {
+        this.stop();
+        return;
+      }
+
+      currentWorld?.update();
+      daysProgressed++;
+
+      if (this.updateCallback) {
+        this.updateCallback({ world: currentWorld });
+      }
+    }, this.speed * 1000);
+  }
+
+  stop() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+    this.isRunning = false;
+  }
+
+  setSpeed(newSpeed) {
+    this.speed = newSpeed;
+    if (this.isRunning && this.timer) {
+      this.stop();
+      this.start(this.updateCallback, this.worldReference);
+    }
+  }
+
+  getIsRunning() {
+    return this.isRunning;
+  }
+}
+
+const gameTimer = new GameTimer();
+
 export function startTimer(callback, world) {
-  if (timerIsRunning) return;
-
-  timerIsRunning = true;
-  timer = setInterval(() => {
-    if (world) {
-      if (world.player.activeEvent) return stopTimer();
-      world.update();
-      worldReference = world;
-    } else {
-      if (worldReference.player.activeEvent) return stopTimer();
-      world = worldReference;
-    }
-
-    daysProgressed++;
-
-    if (callback) {
-      updateCallback = callback;
-    }
-
-    updateCallback({
-      world: world,
-    });
-
-    return () => {
-      stopTimer();
-    };
-  }, speed * 1000);
+  gameTimer.start(callback, world);
 }
 
 export function stopTimer() {
-  timerIsRunning = false;
-  clearInterval(timer);
+  gameTimer.stop();
 }
 
 export function setSpeed(newSpeed) {
-  speed = newSpeed;
-  if (isTimerRunning() && timer) {
-    // Restart timer with new speed
-    stopTimer();
-    startTimer(updateCallback, worldReference);
-  }
+  gameTimer.setSpeed(newSpeed);
+}
+
+export function isTimerRunning() {
+  return gameTimer.getIsRunning();
 }
 
 export function getDate() {

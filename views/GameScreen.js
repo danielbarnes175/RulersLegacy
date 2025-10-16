@@ -13,7 +13,6 @@ export default function GameScreen({ navigation, route }) {
   let [modalVisible, setModalVisible] = useState(false);
   let [world, setWorld] = useState(new World());
 
-  // Start timer when game starts
   useEffect(() => {
     if (route.params.playerParams.generateRandomPlayer) {
       let player = Person.createRandomPerson();
@@ -28,6 +27,10 @@ export default function GameScreen({ navigation, route }) {
     setWorld(world);
 
     time.startTimer(updateState, world);
+
+    return () => {
+      time.stopTimer();
+    };
   }, []);
 
   const handleClose = () => {
@@ -39,7 +42,7 @@ export default function GameScreen({ navigation, route }) {
   const updateState = (updates) => {
     setWorld(clone(updates.world));
 
-    if (world.player.activeEvent) {
+    if (updates.world.player.activeEvent) {
       setModalVisible(true);
     }
   };
