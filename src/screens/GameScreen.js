@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Header from "./Header";
 import Main from "./Main";
 import GameFooter from "./GameFooter";
+import LoadingScreen from "../components/LoadingScreen";
 import { useGameState, useGameTimer, useEventModal } from "../hooks/useGameHooks";
 
 export default function GameScreen({ navigation, route }) {
@@ -31,11 +32,7 @@ export default function GameScreen({ navigation, route }) {
   };
 
   if (!isInitialized) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading game...</Text>
-      </View>
-    );
+    return <LoadingScreen message="Initializing your realm..." />;
   }
 
   return (
