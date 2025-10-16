@@ -1,6 +1,7 @@
 import clone from "clone";
 import { stopTimer } from "./time";
 import events from "./eventList";
+import { EVENT_TYPES } from "../../config/gameConfig";
 
 export const simulateEvent = (event, person) => {
   try {
@@ -9,7 +10,7 @@ export const simulateEvent = (event, person) => {
       return;
     }
 
-    if (event.type === "choice") {
+    if (event.type === EVENT_TYPES.CHOICE) {
       if (person.isPlayer) {
         person.activeEvent = event;
         stopTimer();
@@ -23,7 +24,7 @@ export const simulateEvent = (event, person) => {
         }
       }
     }
-    if (event.type === "automatic") {
+    if (event.type === EVENT_TYPES.AUTOMATIC) {
       if (event.effect && typeof event.effect === 'function') {
         event.effect(person);
       }

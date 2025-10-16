@@ -1,9 +1,7 @@
 import Person from "./person";
 import Community from "./community";
 import { getDate } from "./time";
-
-const NUMBER_OF_COMMUNITIES = 20;
-const PEOPLE_PER_COMMUNITY = 20;
+import { GAME_CONFIG } from "../../config/gameConfig";
 
 export class World {
   constructor() {
@@ -15,9 +13,9 @@ export class World {
   }
 
   populateWorld() {
-    for (let i = 0; i < NUMBER_OF_COMMUNITIES; i++) {
+    for (let i = 0; i < GAME_CONFIG.WORLD.NUMBER_OF_COMMUNITIES; i++) {
       let members = [];
-      for (let j = 0; j < PEOPLE_PER_COMMUNITY; j++) {
+      for (let j = 0; j < GAME_CONFIG.WORLD.PEOPLE_PER_COMMUNITY; j++) {
         let person = Person.createRandomPerson();
         members.push(person);
       }

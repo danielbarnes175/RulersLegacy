@@ -1,4 +1,5 @@
-const START_DATE = "1/1/1066";
+import { GAME_CONFIG } from "../../config/gameConfig";
+
 let daysProgressed = 0;
 
 class GameTimer {
@@ -73,7 +74,7 @@ export function isTimerRunning() {
 }
 
 export function getDate() {
-  const date = new Date(START_DATE);
+  const date = new Date(GAME_CONFIG.WORLD.START_DATE);
   date.setDate(date.getDate() + daysProgressed);
   return date.toDateString();
 }
@@ -93,7 +94,7 @@ export function getRandomDate(year) {
 }
 
 export function isItThisDay(date) {
-  const currentDate = new Date(START_DATE);
+  const currentDate = new Date(GAME_CONFIG.WORLD.START_DATE);
   currentDate.setDate(date.getDate() + daysProgressed);
 
   let currentDateMonth = currentDate.getUTCMonth() + 1;

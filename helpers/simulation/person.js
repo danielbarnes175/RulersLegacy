@@ -4,9 +4,7 @@ import { getRandomId } from "../getRandomId";
 import { getRandomName } from "../names";
 import { getRandomTraits } from "../traits";
 import { getRandomPortrait } from "../getRandomPortrait";
-
-const CHANCE_FOR_NPC_EVENT = 0.02; // 2%
-const CHANCE_FOR_PLAYER_EVENT = 0.1; // 10%
+import { GAME_CONFIG, GENDERS } from "../../config/gameConfig";
 
 export default class Person {
   constructor(personProperties) {
@@ -21,8 +19,7 @@ export default class Person {
   simulate() {
     const randomChance = Math.floor(Math.random() * 100);
     let chancePercentage =
-      (this.isPlayer ? CHANCE_FOR_PLAYER_EVENT : CHANCE_FOR_NPC_EVENT) * 100;
-    if (this.isPlayer) console.log(this.isPlayer);
+      (this.isPlayer ? GAME_CONFIG.EVENTS.CHANCE_FOR_PLAYER_EVENT : GAME_CONFIG.EVENTS.CHANCE_FOR_NPC_EVENT) * 100;
 
     if (randomChance <= chancePercentage) {
       // Generate and simulate new event
@@ -37,26 +34,28 @@ export default class Person {
   }
 
   static createRandomPerson(gender = null, generateFamily = true) {
+    const statRange = GAME_CONFIG.CHARACTERS.MAX_STAT - GAME_CONFIG.CHARACTERS.MIN_STAT + 1;
     let stats = {
-      strength: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
-      intelligence: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
-      charisma: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
-      leadership: Math.floor(Math.random() * (20 - 10 + 1)) + 10,
+      strength: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      intelligence: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      charisma: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      leadership: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
     };
     if (!gender) {
-      gender = Math.random() < 0.5 ? "male" : "female";
+      gender = Math.random() < 0.5 ? GENDERS.MALE : GENDERS.FEMALE;
     }
-    let age = Math.floor(Math.random() * 40) + 15;
+    const ageRange = GAME_CONFIG.CHARACTERS.MAX_AGE - GAME_CONFIG.CHARACTERS.MIN_AGE;
+    let age = Math.floor(Math.random() * ageRange) + GAME_CONFIG.CHARACTERS.MIN_AGE;
 
     let properties = {
       name: getRandomName(gender),
       age: age,
-      gold: Math.floor(Math.random() * 1000),
+      gold: Math.floor(Math.random() * GAME_CONFIG.CHARACTERS.MAX_GOLD),
       stats: stats,
       id: getRandomId(),
-      prestige: Math.floor(Math.random() * 100),
+      prestige: Math.floor(Math.random() * GAME_CONFIG.CHARACTERS.MAX_PRESTIGE),
       traits: getRandomTraits(),
-      health: Math.floor(Math.random() * 100),
+      health: Math.floor(Math.random() * GAME_CONFIG.CHARACTERS.MAX_HEALTH),
       gender: gender,
       portrait: getRandomPortrait(gender),
       isPlayer: false,
@@ -97,14 +96,14 @@ export default class Person {
   }
 
   // Pass on their title, realm, and vassals to heir
-  die() {}
+  die() { }
 
   marry(spouse) {
     this.spouse = spouse;
   }
 
   // Divorce with current spouse
-  divorce() {}
+  divorce() { }
 
   generateFamily() {
     let mother = Person.createRandomPerson("female", false);
