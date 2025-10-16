@@ -6,14 +6,14 @@ let timerIsRunning = false;
 let updateCallback;
 let worldReference;
 
-const START_DATE = '1/1/1066';
+const START_DATE = "1/1/1066";
 let daysProgressed = 0;
 
 export function startTimer(callback, world) {
   if (timerIsRunning) return;
-  
+
   timerIsRunning = true;
-  timer = setInterval(() => {    
+  timer = setInterval(() => {
     if (world) {
       if (world.player.activeEvent) return stopTimer();
       world.update();
@@ -30,10 +30,12 @@ export function startTimer(callback, world) {
     }
 
     updateCallback({
-      world: world
+      world: world,
     });
 
-    return () => { stopTimer(); }
+    return () => {
+      stopTimer();
+    };
   }, speed * 1000);
 }
 
@@ -61,10 +63,10 @@ export function getRandomDate(year) {
   let maxDay = 31;
   let month = Math.floor(Math.random() * 12) + 1;
 
-  if (month === 2){
-      maxDay = 28;
-  } else if ([4,6,9,11].indexOf(month) !== -1){
-      maxDay = 30;
+  if (month === 2) {
+    maxDay = 28;
+  } else if ([4, 6, 9, 11].indexOf(month) !== -1) {
+    maxDay = 30;
   }
 
   const day = Math.floor(Math.random() * maxDay) + 1;
@@ -80,7 +82,7 @@ export function isItThisDay(date) {
   let dateMonth = date.getUTCMonth() + 1;
   let dateDay = date.getUTCDate();
 
-  return (currentDateMonth === dateMonth && currentDateDay === dateDay);
+  return currentDateMonth === dateMonth && currentDateDay === dateDay;
 }
 
 export function isTimerRunning() {

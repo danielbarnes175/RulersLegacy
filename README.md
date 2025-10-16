@@ -1,4 +1,5 @@
 # Ruler's Legacy
+
 v0.0.1
 
 A simulation game created with React Native and Expo, designed for mobile. Lead your community, and make decisions that affect you and your people for generations to come.
@@ -13,9 +14,9 @@ A simulation game created with React Native and Expo, designed for mobile. Lead 
 
 To build the project, the following prerequisites are needed:
 
-* NodeJS (and NPM)
-* The [Expo](https://expo.dev/) app on Android or iOS
-* Git
+- NodeJS (and NPM)
+- The [Expo](https://expo.dev/) app on Android or iOS
+- Git
 
 1. Open a terminal and clone the repository: `git clone https://github.com/danielbarnes175/RulersLegacy.git` (You can also do this via a fork)
 2. `cd RulersLegacy`

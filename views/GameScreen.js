@@ -1,12 +1,12 @@
-import clone from 'clone';
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import Main from './Main';
-import GameFooter from './GameFooter';
-import * as time from '../helpers/simulation/time';
-import { World } from '../helpers/simulation/world';
-import Person from '../helpers/simulation/person';
+import clone from "clone";
+import { StyleSheet, Text, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import Header from "./Header";
+import Main from "./Main";
+import GameFooter from "./GameFooter";
+import * as time from "../helpers/simulation/time";
+import { World } from "../helpers/simulation/world";
+import Person from "../helpers/simulation/person";
 
 export default function GameScreen({ navigation, route }) {
   let [player, setPlayer] = useState(Person.createRandomPerson());
@@ -36,19 +36,25 @@ export default function GameScreen({ navigation, route }) {
     time.startTimer(updateState, world);
   };
 
-  const updateState = updates => {
+  const updateState = (updates) => {
     setWorld(clone(updates.world));
 
     if (world.player.activeEvent) {
       setModalVisible(true);
     }
-  }
-
+  };
 
   return (
     <View style={styles.container}>
       <Header style={styles.header} world={world} />
-      <Main style={styles.main} eventHistory={clone(world.player.eventHistory)} modalVisible={modalVisible} currentEvent={world.player.activeEvent} handleClose={handleClose} player={world.player} />
+      <Main
+        style={styles.main}
+        eventHistory={clone(world.player.eventHistory)}
+        modalVisible={modalVisible}
+        currentEvent={world.player.activeEvent}
+        handleClose={handleClose}
+        player={world.player}
+      />
       <GameFooter style={styles.footer} />
     </View>
   );
@@ -57,17 +63,11 @@ export default function GameScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D7BC89',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#D7BC89",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  header: {
-
-  },
-  main: {
-
-  },
-  footer: {
-
-  }
+  header: {},
+  main: {},
+  footer: {},
 });
