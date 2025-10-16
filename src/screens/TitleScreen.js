@@ -23,7 +23,7 @@ const TitleScreen = React.memo(({ navigation }) => {
   );
 });
 
-TitleScreen.displayName = 'TitleScreen';
+TitleScreen.displayName = "TitleScreen";
 
 TitleScreen.propTypes = {
   navigation: PropTypes.shape({

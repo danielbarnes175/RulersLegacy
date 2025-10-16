@@ -1,7 +1,7 @@
-import Person from "./person";
-import Community from "./community";
-import { getDate } from "./time";
-import { GAME_CONFIG } from "../config/gameConfig";
+import Person from "services/simulation//person";
+import Community from "services/simulation//community";
+import { getDate } from "services/simulation/time";
+import { GAME_CONFIG } from "config/gameConfig";
 
 export class World {
   constructor() {

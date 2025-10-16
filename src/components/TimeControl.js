@@ -1,18 +1,20 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import * as time from "../services/simulation/time";
-import { GAME_CONFIG } from "../config/gameConfig";
+import * as time from "services/simulation/time";
+import { GAME_CONFIG } from "config/gameConfig";
 
 const TimeControl = React.memo(() => {
   const speedOptions = useMemo(() => GAME_CONFIG.TIMER.SPEED_OPTIONS, []);
-  const [selectedSpeed, setSelectedSpeed] = useState(GAME_CONFIG.TIMER.DEFAULT_SPEED);
+  const [selectedSpeed, setSelectedSpeed] = useState(
+    GAME_CONFIG.TIMER.DEFAULT_SPEED,
+  );
 
   const onSpeedChange = useCallback((newSpeed) => {
     try {
       time.setSpeed(newSpeed);
       setSelectedSpeed(newSpeed);
     } catch (error) {
-      console.error('Error changing game speed:', error);
+      console.error("Error changing game speed:", error);
     }
   }, []);
 
@@ -37,7 +39,7 @@ const TimeControl = React.memo(() => {
   );
 });
 
-TimeControl.displayName = 'TimeControl';
+TimeControl.displayName = "TimeControl";
 
 export default TimeControl;
 

@@ -1,4 +1,4 @@
-import { malePortraitMapping, femalePortraitMapping } from "./portraits";
+import { malePortraitMapping, femalePortraitMapping } from "utils/portraits";
 
 export function getRandomPortrait(gender) {
   const length =

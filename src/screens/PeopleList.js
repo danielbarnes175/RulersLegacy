@@ -10,12 +10,12 @@ import {
   ImageBackground,
 } from "react-native";
 import PropTypes from "prop-types";
-import Person from "./Person";
+import Person from "screens/Person";
 import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../services/simulation/time";
+} from "services/simulation/time";
 import paperTexture from "assets/textures/paper.webp";
 
 const PeopleList = React.memo(({ community, onClose }) => {
@@ -37,10 +37,7 @@ const PeopleList = React.memo(({ community, onClose }) => {
                     setPersonViewVisible(true);
                   }}
                 >
-                  <Image
-                    source={person.portrait}
-                    style={styles.portrait}
-                  />
+                  <Image source={person.portrait} style={styles.portrait} />
                   <Text>{person.name}</Text>
                 </TouchableOpacity>
               </View>
@@ -68,7 +65,7 @@ const PeopleList = React.memo(({ community, onClose }) => {
   );
 });
 
-PeopleList.displayName = 'PeopleList';
+PeopleList.displayName = "PeopleList";
 
 PeopleList.propTypes = {
   community: PropTypes.shape({
@@ -76,7 +73,7 @@ PeopleList.propTypes = {
       PropTypes.shape({
         portrait: PropTypes.any.isRequired,
         name: PropTypes.string.isRequired,
-      })
+      }),
     ).isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,

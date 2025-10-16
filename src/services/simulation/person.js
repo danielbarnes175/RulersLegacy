@@ -1,10 +1,10 @@
-import * as events from "./events";
-import { getDate, getRandomDate, isItThisDay } from "./time";
-import { getRandomId } from "../../utils/getRandomId";
-import { getRandomName } from "../../utils/names";
-import { getRandomTraits } from "../../utils/traits";
-import { getRandomPortrait } from "../../utils/getRandomPortrait";
-import { GAME_CONFIG, GENDERS } from "../config/gameConfig";
+import * as events from "services/simulation/events";
+import { getDate, getRandomDate, isItThisDay } from "services/simulation/time";
+import { getRandomId } from "utils/getRandomId";
+import { getRandomName } from "utils/names";
+import { getRandomTraits } from "utils/traits";
+import { getRandomPortrait } from "utils/getRandomPortrait";
+import { GAME_CONFIG, GENDERS } from "config/gameConfig";
 
 export default class Person {
   constructor(personProperties) {
@@ -19,7 +19,9 @@ export default class Person {
   simulate() {
     const randomChance = Math.floor(Math.random() * 100);
     const chancePercentage =
-      (this.isPlayer ? GAME_CONFIG.EVENTS.CHANCE_FOR_PLAYER_EVENT : GAME_CONFIG.EVENTS.CHANCE_FOR_NPC_EVENT) * 100;
+      (this.isPlayer
+        ? GAME_CONFIG.EVENTS.CHANCE_FOR_PLAYER_EVENT
+        : GAME_CONFIG.EVENTS.CHANCE_FOR_NPC_EVENT) * 100;
 
     if (randomChance <= chancePercentage) {
       // Generate and simulate new event
@@ -34,18 +36,25 @@ export default class Person {
   }
 
   static createRandomPerson(gender = null, generateFamily = true) {
-    const statRange = GAME_CONFIG.CHARACTERS.MAX_STAT - GAME_CONFIG.CHARACTERS.MIN_STAT + 1;
+    const statRange =
+      GAME_CONFIG.CHARACTERS.MAX_STAT - GAME_CONFIG.CHARACTERS.MIN_STAT + 1;
     const stats = {
-      strength: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
-      intelligence: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
-      charisma: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
-      leadership: Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      strength:
+        Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      intelligence:
+        Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      charisma:
+        Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
+      leadership:
+        Math.floor(Math.random() * statRange) + GAME_CONFIG.CHARACTERS.MIN_STAT,
     };
     if (!gender) {
       gender = Math.random() < 0.5 ? GENDERS.MALE : GENDERS.FEMALE;
     }
-    const ageRange = GAME_CONFIG.CHARACTERS.MAX_AGE - GAME_CONFIG.CHARACTERS.MIN_AGE;
-    const age = Math.floor(Math.random() * ageRange) + GAME_CONFIG.CHARACTERS.MIN_AGE;
+    const ageRange =
+      GAME_CONFIG.CHARACTERS.MAX_AGE - GAME_CONFIG.CHARACTERS.MIN_AGE;
+    const age =
+      Math.floor(Math.random() * ageRange) + GAME_CONFIG.CHARACTERS.MIN_AGE;
 
     const properties = {
       name: getRandomName(gender),
@@ -96,14 +105,14 @@ export default class Person {
   }
 
   // Pass on their title, realm, and vassals to heir
-  die() { }
+  die() {}
 
   marry(spouse) {
     this.spouse = spouse;
   }
 
   // Divorce with current spouse
-  divorce() { }
+  divorce() {}
 
   generateFamily() {
     const mother = Person.createRandomPerson("female", false);

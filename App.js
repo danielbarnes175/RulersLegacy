@@ -3,17 +3,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import PropTypes from "prop-types";
-import ErrorBoundary from "./src/components/ui/ErrorBoundary";
+import ErrorBoundary from "src/components/ui/ErrorBoundary";
 
 const Stack = createStackNavigator();
 
-import TitleScreen from "./src/screens/TitleScreen";
-import GameScreen from "./src/screens/GameScreen";
-import CharacterSelection from "./src/screens/CharacterSelection";
-import CharacterCustomizer from "./src/screens/CharacterCustomizer";
+import TitleScreen from "src/screens/TitleScreen";
+import GameScreen from "src/screens/GameScreen";
+import CharacterSelection from "src/screens/CharacterSelection";
+import CharacterCustomizer from "src/screens/CharacterCustomizer";
 
 const GameScreenWithErrorBoundary = (props) => (
-  <ErrorBoundary showBackButton onBack={() => props.navigation.navigate('TitleScreen')}>
+  <ErrorBoundary
+    showBackButton
+    onBack={() => props.navigation.navigate("TitleScreen")}
+  >
     <GameScreen {...props} />
   </ErrorBoundary>
 );

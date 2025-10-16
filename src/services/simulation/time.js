@@ -1,4 +1,4 @@
-import { GAME_CONFIG } from "../config/gameConfig";
+import { GAME_CONFIG } from "config/gameConfig";
 
 let daysProgressed = 0;
 
@@ -12,7 +12,9 @@ class GameTimer {
   }
 
   start(callback, world) {
-    if (this.isRunning) {return;}
+    if (this.isRunning) {
+      return;
+    }
 
     this.isRunning = true;
     this.updateCallback = callback;

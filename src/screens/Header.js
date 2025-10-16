@@ -12,10 +12,10 @@ import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../services/simulation/time";
-import Person from "./Person";
-import GameMenu from "./GameMenu";
-import burgerIcon from "../assets/burger.png";
+} from "services/simulation/time";
+import Person from "screens/Person";
+import GameMenu from "screens/GameMenu";
+import burgerIcon from "assets/burger.png";
 
 const Header = ({ world }) => {
   const [playerProfileVisible, setPlayerProfileVisible] = useState(false);

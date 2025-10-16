@@ -1,14 +1,15 @@
 import { StyleSheet, View } from "react-native";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
-import Header from "./Header";
-import Main from "./Main";
-import GameFooter from "./GameFooter";
-import LoadingScreen from "../components/LoadingScreen";
-import { useGameState, useGameTimer, useEventModal } from "../hooks/useGameHooks";
+import Header from "screens/Header";
+import Main from "screens/Main";
+import GameFooter from "screens/GameFooter";
+import LoadingScreen from "components/LoadingScreen";
+import { useGameState, useGameTimer, useEventModal } from "hooks/useGameHooks";
 
 export default function GameScreen({ navigation, route }) {
-  const { world, player, isInitialized, initializeGame, updateWorld } = useGameState(route.params.playerParams);
+  const { world, player, isInitialized, initializeGame, updateWorld } =
+    useGameState(route.params.playerParams);
   const { startTimer, stopTimer } = useGameTimer();
   const { modalVisible, currentEvent, closeModal } = useEventModal(player);
 
@@ -17,8 +18,8 @@ export default function GameScreen({ navigation, route }) {
       const initializedWorld = initializeGame();
       startTimer(updateWorld, initializedWorld);
     } catch (error) {
-      console.error('Failed to initialize game:', error);
-      navigation.navigate('TitleScreen');
+      console.error("Failed to initialize game:", error);
+      navigation.navigate("TitleScreen");
     }
 
     return () => {

@@ -1,33 +1,29 @@
 import React from "react";
 import { StyleSheet, ScrollView, View, Text } from "react-native";
 import PropTypes from "prop-types";
-import EventHistory from "../components/EventHistory";
-import EventModal from "../components/EventModal";
+import EventHistory from "components/EventHistory";
+import EventModal from "components/EventModal";
 
-const Main = React.memo(({
-  eventHistory,
-  modalVisible,
-  currentEvent,
-  handleClose,
-  player,
-}) => {
-  return (
-    <View style={styles.scrollView}>
-      <Text style={styles.header}>Events</Text>
-      <ScrollView>
-        <EventHistory eventHistory={eventHistory} />
-      </ScrollView>
-      <EventModal
-        visible={modalVisible}
-        event={currentEvent}
-        handleClose={handleClose}
-        player={player}
-      />
-    </View>
-  );
-});
+const Main = React.memo(
+  ({ eventHistory, modalVisible, currentEvent, handleClose, player }) => {
+    return (
+      <View style={styles.scrollView}>
+        <Text style={styles.header}>Events</Text>
+        <ScrollView>
+          <EventHistory eventHistory={eventHistory} />
+        </ScrollView>
+        <EventModal
+          visible={modalVisible}
+          event={currentEvent}
+          handleClose={handleClose}
+          player={player}
+        />
+      </View>
+    );
+  },
+);
 
-Main.displayName = 'Main';
+Main.displayName = "Main";
 
 Main.propTypes = {
   eventHistory: PropTypes.array.isRequired,

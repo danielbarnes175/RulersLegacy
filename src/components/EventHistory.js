@@ -21,7 +21,7 @@ const EventHistory = React.memo(({ eventHistory }) => {
   );
 });
 
-EventHistory.displayName = 'EventHistory';
+EventHistory.displayName = "EventHistory";
 
 EventHistory.propTypes = {
   eventHistory: PropTypes.arrayOf(
@@ -29,7 +29,7 @@ EventHistory.propTypes = {
       id: PropTypes.string,
       timeString: PropTypes.string,
       description: PropTypes.string.isRequired,
-    })
+    }),
   ),
 };
 

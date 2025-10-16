@@ -9,14 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import PropTypes from "prop-types";
-import { log } from "../utils/debug";
+import { log } from "utils/debug";
 import paperTexture from "assets/textures/paper.webp";
 import strengthIcon from "assets/icons/strength.png";
 import lightbulbIcon from "assets/icons/lightbulb.png";
 import speakIcon from "assets/icons/speak.png";
 
 const Person = React.memo(({ person, onClose }) => {
-
   return (
     <View style={styles.container}>
       <ImageBackground source={paperTexture} style={styles.bg}>
@@ -115,7 +114,7 @@ const Person = React.memo(({ person, onClose }) => {
   );
 });
 
-Person.displayName = 'Person';
+Person.displayName = "Person";
 
 Person.propTypes = {
   person: PropTypes.shape({
@@ -133,26 +132,26 @@ Person.propTypes = {
     traits: PropTypes.arrayOf(
       PropTypes.shape({
         image: PropTypes.any.isRequired,
-      })
+      }),
     ).isRequired,
     family: PropTypes.shape({
       parents: PropTypes.arrayOf(
         PropTypes.shape({
           portrait: PropTypes.any.isRequired,
           name: PropTypes.string.isRequired,
-        })
+        }),
       ).isRequired,
       siblings: PropTypes.arrayOf(
         PropTypes.shape({
           portrait: PropTypes.any.isRequired,
           name: PropTypes.string.isRequired,
-        })
+        }),
       ).isRequired,
       children: PropTypes.arrayOf(
         PropTypes.shape({
           portrait: PropTypes.any.isRequired,
           name: PropTypes.string.isRequired,
-        })
+        }),
       ).isRequired,
     }).isRequired,
   }).isRequired,

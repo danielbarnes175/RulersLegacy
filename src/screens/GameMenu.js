@@ -10,8 +10,8 @@ import {
   ImageBackground,
 } from "react-native";
 import PropTypes from "prop-types";
-import PeopleList from "./PeopleList";
-import CommunityList from "./CommunityList";
+import PeopleList from "screens/PeopleList";
+import CommunityList from "screens/CommunityList";
 import paperTexture from "assets/textures/paper.webp";
 import worldIcon from "assets/icons/world.png";
 import communityIcon from "assets/icons/community.png";
@@ -28,56 +28,59 @@ const GameMenu = ({ world, onClose }) => {
   const [communityViewVisible, setCommunityViewVisible] = useState(false);
   const [decisionViewVisible, setDecisionViewVisible] = useState(false);
 
-  const menuOptions = useMemo(() => [
-    {
-      title: "World",
-      subheading: "See relations with other communities",
-      image: worldIcon,
-      onPress: () => handleMenuItemPress("World"),
-    },
-    {
-      title: "Your Community",
-      subheading: "Detailed view of your community",
-      image: communityIcon,
-      onPress: () => handleMenuItemPress("Community"),
-    },
-    {
-      title: "Decisions",
-      subheading: "View available choices",
-      image: decisionsIcon,
-      onPress: () => handleMenuItemPress("Decisions"),
-    },
-    {
-      title: "Economy",
-      subheading: "Trade and resources",
-      image: goldIcon,
-      onPress: () => handleMenuItemPress("Economy"),
-    },
-    {
-      title: "Laws",
-      subheading: "Change your legal system",
-      image: lawsIcon,
-      onPress: () => handleMenuItemPress("Laws"),
-    },
-    {
-      title: "Religion",
-      subheading: "Your community's beliefs and practices",
-      image: religionIcon,
-      onPress: () => handleMenuItemPress("Religion"),
-    },
-    {
-      title: "Culture",
-      subheading: "Manage cultural practices and traditions",
-      image: cultureIcon,
-      onPress: () => handleMenuItemPress("Culture"),
-    },
-    {
-      title: "Military",
-      subheading: "Manage your community's military and defense",
-      image: militaryIcon,
-      onPress: () => handleMenuItemPress("Military"),
-    },
-  ], []);
+  const menuOptions = useMemo(
+    () => [
+      {
+        title: "World",
+        subheading: "See relations with other communities",
+        image: worldIcon,
+        onPress: () => handleMenuItemPress("World"),
+      },
+      {
+        title: "Your Community",
+        subheading: "Detailed view of your community",
+        image: communityIcon,
+        onPress: () => handleMenuItemPress("Community"),
+      },
+      {
+        title: "Decisions",
+        subheading: "View available choices",
+        image: decisionsIcon,
+        onPress: () => handleMenuItemPress("Decisions"),
+      },
+      {
+        title: "Economy",
+        subheading: "Trade and resources",
+        image: goldIcon,
+        onPress: () => handleMenuItemPress("Economy"),
+      },
+      {
+        title: "Laws",
+        subheading: "Change your legal system",
+        image: lawsIcon,
+        onPress: () => handleMenuItemPress("Laws"),
+      },
+      {
+        title: "Religion",
+        subheading: "Your community's beliefs and practices",
+        image: religionIcon,
+        onPress: () => handleMenuItemPress("Religion"),
+      },
+      {
+        title: "Culture",
+        subheading: "Manage cultural practices and traditions",
+        image: cultureIcon,
+        onPress: () => handleMenuItemPress("Culture"),
+      },
+      {
+        title: "Military",
+        subheading: "Manage your community's military and defense",
+        image: militaryIcon,
+        onPress: () => handleMenuItemPress("Military"),
+      },
+    ],
+    [],
+  );
 
   const handleMenuItemPress = (category) => {
     switch (category) {

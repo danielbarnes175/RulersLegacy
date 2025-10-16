@@ -9,12 +9,12 @@ import {
   ImageBackground,
 } from "react-native";
 import PropTypes from "prop-types";
-import PeopleList from "./PeopleList";
+import PeopleList from "screens/PeopleList";
 import {
   stopTimer,
   startTimer,
   isTimerRunning,
-} from "../services/simulation/time";
+} from "services/simulation/time";
 import paperTexture from "assets/textures/paper.webp";
 
 const CommunityList = ({ world, onClose }) => {
@@ -68,7 +68,7 @@ CommunityList.propTypes = {
     communities: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-      })
+      }),
     ).isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,

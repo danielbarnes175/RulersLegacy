@@ -1,12 +1,12 @@
 import clone from "clone";
-import { stopTimer } from "./time";
-import events from "./eventList";
-import { EVENT_TYPES } from "../config/gameConfig";
+import { stopTimer } from "services/simulation/time";
+import events from "services/simulation/eventList";
+import { EVENT_TYPES } from "config/gameConfig";
 
 export const simulateEvent = (event, person) => {
   try {
     if (!event || !person) {
-      console.warn('simulateEvent called with missing event or person');
+      console.warn("simulateEvent called with missing event or person");
       return;
     }
 
@@ -18,14 +18,17 @@ export const simulateEvent = (event, person) => {
         if (event.choices && event.choices.length > 0) {
           const randomChoice =
             event.choices[Math.floor(Math.random() * event.choices.length)];
-          if (randomChoice.effect && typeof randomChoice.effect === 'function') {
+          if (
+            randomChoice.effect &&
+            typeof randomChoice.effect === "function"
+          ) {
             randomChoice.effect(person);
           }
         }
       }
     }
     if (event.type === EVENT_TYPES.AUTOMATIC) {
-      if (event.effect && typeof event.effect === 'function') {
+      if (event.effect && typeof event.effect === "function") {
         event.effect(person);
       }
     }
@@ -34,9 +37,9 @@ export const simulateEvent = (event, person) => {
       person.eventHistory.push(event);
     }
   } catch (error) {
-    console.error('Error simulating event:', error);
-    console.error('Event:', event);
-    console.error('Person:', person?.name || 'Unknown');
+    console.error("Error simulating event:", error);
+    console.error("Event:", event);
+    console.error("Person:", person?.name || "Unknown");
   }
 };
 

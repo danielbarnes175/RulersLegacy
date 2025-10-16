@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import TimeControl from "../components/TimeControl";
+import TimeControl from "components/TimeControl";
 
 const GameFooter = React.memo(() => {
   return (
@@ -10,7 +10,7 @@ const GameFooter = React.memo(() => {
   );
 });
 
-GameFooter.displayName = 'GameFooter';
+GameFooter.displayName = "GameFooter";
 
 const styles = StyleSheet.create({
   container: {

@@ -3,16 +3,19 @@ import { StyleSheet, Button, View, Text } from "react-native";
 import PropTypes from "prop-types";
 
 const EventModal = React.memo(({ visible, event, handleClose, player }) => {
-  const handleChoicePress = useCallback((choice) => {
-    if (choice.effect && typeof choice.effect === 'function') {
-      try {
-        choice.effect(player);
-      } catch (error) {
-        console.error('Error executing choice effect:', error);
+  const handleChoicePress = useCallback(
+    (choice) => {
+      if (choice.effect && typeof choice.effect === "function") {
+        try {
+          choice.effect(player);
+        } catch (error) {
+          console.error("Error executing choice effect:", error);
+        }
       }
-    }
-    handleClose();
-  }, [player, handleClose]);
+      handleClose();
+    },
+    [player, handleClose],
+  );
 
   if (!event) {
     return null;
@@ -43,7 +46,7 @@ const EventModal = React.memo(({ visible, event, handleClose, player }) => {
   );
 });
 
-EventModal.displayName = 'EventModal';
+EventModal.displayName = "EventModal";
 
 EventModal.propTypes = {
   visible: PropTypes.bool.isRequired,
@@ -54,7 +57,7 @@ EventModal.propTypes = {
       PropTypes.shape({
         text: PropTypes.string.isRequired,
         effect: PropTypes.func.isRequired,
-      })
+      }),
     ),
   }),
   handleClose: PropTypes.func.isRequired,
