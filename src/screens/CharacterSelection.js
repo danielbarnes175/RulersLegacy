@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import Person from "../helpers/simulation/person";
+import Person from "../services/simulation/person";
 
 const CharacterSelection = ({ navigation }) => {
   const handleRandomPress = () => {

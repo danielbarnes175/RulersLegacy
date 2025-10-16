@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { World } from '../helpers/simulation/world';
-import Person from '../helpers/simulation/person';
-import * as time from '../helpers/simulation/time';
+import { World } from '../services/simulation/world';
+import Person from '../services/simulation/person';
+import * as time from '../services/simulation/time';
 import clone from 'clone';
 
 export const useGameState = (playerParams) => {

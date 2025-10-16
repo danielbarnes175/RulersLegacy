@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
-import * as time from "../../helpers/simulation/time";
-import { GAME_CONFIG } from "../../config/gameConfig";
+import * as time from "../services/simulation/time";
+import { GAME_CONFIG } from "../config/gameConfig";
 
 const TimeControl = React.memo(() => {
   const speedOptions = useMemo(() => GAME_CONFIG.TIMER.SPEED_OPTIONS, []);

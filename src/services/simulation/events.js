@@ -1,7 +1,7 @@
 import clone from "clone";
 import { stopTimer } from "./time";
 import events from "./eventList";
-import { EVENT_TYPES } from "../../config/gameConfig";
+import { EVENT_TYPES } from "../config/gameConfig";
 
 export const simulateEvent = (event, person) => {
   try {

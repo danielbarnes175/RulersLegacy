@@ -9,7 +9,7 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { log } from "../helpers/debug";
+import { log } from "../utils/debug";
 import paperTexture from "assets/textures/paper.webp";
 import strengthIcon from "assets/icons/strength.png";
 import lightbulbIcon from "assets/icons/lightbulb.png";

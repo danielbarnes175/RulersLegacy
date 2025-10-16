@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
-import TimeControl from "./components/TimeControl";
+import TimeControl from "../components/TimeControl";
 
 const GameFooter = React.memo(() => {
   return (

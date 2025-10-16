@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import EventHistory from "./components/EventHistory";
-import EventModal from "./components/EventModal";
+import EventHistory from "../components/EventHistory";
+import EventModal from "../components/EventModal";
 
 export default function Main({
   eventHistory,

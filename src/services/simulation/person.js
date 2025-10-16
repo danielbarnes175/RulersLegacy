@@ -1,10 +1,10 @@
 import * as events from "./events";
 import { getDate, getRandomDate, isItThisDay } from "./time";
-import { getRandomId } from "../getRandomId";
-import { getRandomName } from "../names";
-import { getRandomTraits } from "../traits";
-import { getRandomPortrait } from "../getRandomPortrait";
-import { GAME_CONFIG, GENDERS } from "../../config/gameConfig";
+import { getRandomId } from "../../utils/getRandomId";
+import { getRandomName } from "../../utils/names";
+import { getRandomTraits } from "../../utils/traits";
+import { getRandomPortrait } from "../../utils/getRandomPortrait";
+import { GAME_CONFIG, GENDERS } from "../config/gameConfig";
 
 export default class Person {
   constructor(personProperties) {

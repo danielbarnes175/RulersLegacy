@@ -4,14 +4,14 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "./src/components/ui/ErrorBoundary";
 
 const Stack = createStackNavigator();
 
-import TitleScreen from "./views/TitleScreen";
-import GameScreen from "./views/GameScreen";
-import CharacterSelection from "./views/CharacterSelection";
-import CharacterCustomizer from "./views/CharacterCustomizer";
+import TitleScreen from "./src/screens/TitleScreen";
+import GameScreen from "./src/screens/GameScreen";
+import CharacterSelection from "./src/screens/CharacterSelection";
+import CharacterCustomizer from "./src/screens/CharacterCustomizer";
 
 export default function App() {
   return (
