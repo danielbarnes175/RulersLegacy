@@ -1,38 +1,50 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Button, View, Text } from "react-native";
 
-export default function EventModal({ visible, event, handleClose, player }) {
-  if (event) {
-    return (
-      <View
-        style={styles.container}
-        visible={visible}
-        backdropColor={"white"}
-        backdropOpacity={1}
-      >
-        <View style={styles.modalView}>
-          <Text style={styles.title}>{event.name}</Text>
-          <View style={styles.divider}></View>
-          <Text>{event.description}</Text>
-          <Text></Text>
-          <Text></Text>
-          {event.choices.map((choice, i) => (
-            <Button
-              key={i}
-              title={choice.text}
-              onPress={() => {
-                handleClose();
-                choice.effect(player);
-              }}
-            />
-          ))}
-        </View>
-      </View>
-    );
-  } else {
-    return <View />;
+const EventModal = React.memo(({ visible, event, handleClose, player }) => {
+  const handleChoicePress = useCallback((choice) => {
+    if (choice.effect && typeof choice.effect === 'function') {
+      try {
+        choice.effect(player);
+      } catch (error) {
+        console.error('Error executing choice effect:', error);
+      }
+    }
+    handleClose();
+  }, [player, handleClose]);
+
+  if (!event) {
+    return null;
   }
-}
+
+  return (
+    <View
+      style={styles.container}
+      visible={visible}
+      backdropColor={"white"}
+      backdropOpacity={1}
+    >
+      <View style={styles.modalView}>
+        <Text style={styles.title}>{event.name}</Text>
+        <View style={styles.divider}></View>
+        <Text>{event.description}</Text>
+        <Text></Text>
+        <Text></Text>
+        {event.choices?.map((choice, i) => (
+          <Button
+            key={i}
+            title={choice.text}
+            onPress={() => handleChoicePress(choice)}
+          />
+        ))}
+      </View>
+    </View>
+  );
+});
+
+EventModal.displayName = 'EventModal';
+
+export default EventModal;
 
 const styles = StyleSheet.create({
   container: {

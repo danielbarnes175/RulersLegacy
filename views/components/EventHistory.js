@@ -1,16 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function EventHistory({ eventHistory }) {
+const EventHistory = React.memo(({ eventHistory }) => {
+  const sortedEvents = useMemo(() => {
+    if (!eventHistory || !Array.isArray(eventHistory)) {
+      return [];
+    }
+    return [...eventHistory].reverse();
+  }, [eventHistory]);
+
   return (
     <View>
-      {eventHistory.reverse().map((event, i) => (
-        <Text key={i}>
+      {sortedEvents.map((event, i) => (
+        <Text key={event.id || i}>
           {event.timeString} - {event.description}
         </Text>
       ))}
     </View>
   );
-}
+});
+
+EventHistory.displayName = 'EventHistory';
+
+export default EventHistory;
 
 const styles = StyleSheet.create({});

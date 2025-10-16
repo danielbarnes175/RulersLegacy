@@ -2,13 +2,15 @@ import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import TimeControl from "./components/TimeControl";
 
-export function GameFooter() {
+const GameFooter = React.memo(() => {
   return (
     <View style={styles.container}>
-      <TimeControl></TimeControl>
+      <TimeControl />
     </View>
   );
-}
+});
+
+GameFooter.displayName = 'GameFooter';
 
 const styles = StyleSheet.create({
   container: {
