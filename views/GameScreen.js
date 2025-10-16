@@ -1,62 +1,52 @@
-import clone from "clone";
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import GameFooter from "./GameFooter";
-import * as time from "../helpers/simulation/time";
-import { World } from "../helpers/simulation/world";
-import Person from "../helpers/simulation/person";
+import { useGameState, useGameTimer, useEventModal } from "../hooks/useGameHooks";
 
 export default function GameScreen({ navigation, route }) {
-  let [player, setPlayer] = useState(Person.createRandomPerson());
-  let [modalVisible, setModalVisible] = useState(false);
-  let [world, setWorld] = useState(new World());
+  const { world, player, isInitialized, initializeGame, updateWorld } = useGameState(route.params.playerParams);
+  const { startTimer, stopTimer } = useGameTimer();
+  const { modalVisible, currentEvent, closeModal } = useEventModal(player);
 
   useEffect(() => {
-    if (route.params.playerParams.generateRandomPlayer) {
-      let player = Person.createRandomPerson();
-      player.isPlayer = true;
-      setPlayer(clone(player));
-    } else {
-      // TODO
+    try {
+      const initializedWorld = initializeGame();
+      startTimer(updateWorld, initializedWorld);
+    } catch (error) {
+      console.error('Failed to initialize game:', error);
+      navigation.navigate('TitleScreen');
     }
-
-    world.player = player;
-    world.communities[0].people.push(player);
-    setWorld(world);
-
-    time.startTimer(updateState, world);
 
     return () => {
-      time.stopTimer();
+      stopTimer();
     };
-  }, []);
+  }, [initializeGame, startTimer, stopTimer, updateWorld, navigation]);
 
   const handleClose = () => {
-    setModalVisible(false);
-    world.player.activeEvent = null;
-    time.startTimer(updateState, world);
+    closeModal();
+    startTimer(updateWorld, world);
   };
 
-  const updateState = (updates) => {
-    setWorld(clone(updates.world));
-
-    if (updates.world.player.activeEvent) {
-      setModalVisible(true);
-    }
-  };
+  if (!isInitialized) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading game...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Header style={styles.header} world={world} />
       <Main
         style={styles.main}
-        eventHistory={clone(world.player.eventHistory)}
+        eventHistory={player?.eventHistory || []}
         modalVisible={modalVisible}
-        currentEvent={world.player.activeEvent}
+        currentEvent={currentEvent}
         handleClose={handleClose}
-        player={world.player}
+        player={player}
       />
       <GameFooter style={styles.footer} />
     </View>
