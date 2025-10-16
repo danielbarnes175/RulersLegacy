@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Modal } from 'react-na
 import { stopTimer, startTimer, isTimerRunning } from '../helpers/simulation/time';
 import Person from './Person';
 import GameMenu from './GameMenu';
+import burgerIcon from '../assets/burger.png';
 
 export default function Header({ world }) {
   const [playerProfileVisible, setPlayerProfileVisible] = useState(false);
@@ -10,7 +11,7 @@ export default function Header({ world }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => { stopTimer(); setPlayerProfileVisible(true); }}
         style={{ position: 'absolute', left: 30 }}
       >
@@ -25,7 +26,7 @@ export default function Header({ world }) {
       </View>
       <View style={{ position: 'absolute', right: 15 }}>
         <TouchableOpacity onPress={() => { stopTimer(); setMenuListVisible(true); }}>
-          <Image source={require('../assets/burger.png')} style={styles.burgerMenuIcon} />
+          <Image source={burgerIcon} style={styles.burgerMenuIcon} />
         </TouchableOpacity>
         <Modal visible={menuListVisible}>
           <GameMenu world={world} onClose={() => { if (!isTimerRunning()) { startTimer(); } setMenuListVisible(false); }} />

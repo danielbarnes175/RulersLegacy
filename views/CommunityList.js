@@ -2,35 +2,36 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, ScrollView, Modal, TouchableOpacity, ImageBackground } from 'react-native';
 import PeopleList from './PeopleList';
 import { stopTimer, startTimer, isTimerRunning } from '../helpers/simulation/time';
+import paperTexture from 'assets/textures/paper.webp';
 
 export default function CommunityList({ world, onClose }) {
   let [communityViewVisible, setCommunityViewVisible] = useState(false);
   let [selectedCommunity, setSelectedCommunity] = useState(null);
-  
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('assets/textures/paper.webp')} style={styles.bg}>
-      <View style={styles.container2} >
-        <Text style={styles.h2}>Character List</Text>
-        <ScrollView style={styles.scrollview}>
-        {world.communities.map((community, i) => (
-          <View key={i} style={styles.community}>
-              <TouchableOpacity onPress={() => { stopTimer(); setSelectedCommunity(community); setCommunityViewVisible(true); }}>
-                  
+      <ImageBackground source={paperTexture} style={styles.bg}>
+        <View style={styles.container2} >
+          <Text style={styles.h2}>Character List</Text>
+          <ScrollView style={styles.scrollview}>
+            {world.communities.map((community, i) => (
+              <View key={i} style={styles.community}>
+                <TouchableOpacity onPress={() => { stopTimer(); setSelectedCommunity(community); setCommunityViewVisible(true); }}>
+
                   <Text>{community.name}</Text>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+          <Modal visible={communityViewVisible}>
+            <PeopleList community={selectedCommunity} onClose={() => { if (!isTimerRunning()) { startTimer(); } setCommunityViewVisible(false); }} />
+          </Modal>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={onClose}>
+              <Text style={styles.buttonText}>Close</Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        </ScrollView>
-        <Modal visible={communityViewVisible}>
-          <PeopleList community={selectedCommunity} onClose={() => { if (!isTimerRunning()) { startTimer(); } setCommunityViewVisible(false); }} />
-        </Modal>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
-            <Text style={styles.buttonText}>Close</Text>
-          </TouchableOpacity>
         </View>
-      </View>
       </ImageBackground>
     </View>
   );
@@ -54,10 +55,10 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   h2: {
-      fontWeight: 'bold',
-      fontSize: 20,
-      marginBottom: '2%',
-      color: '#000'
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: '2%',
+    color: '#000'
   },
   scrollview: {
     borderBottomWidth: 1,
@@ -81,14 +82,14 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   button: {
-      backgroundColor: '#333',
-      padding: 10,
-      borderRadius: 5,
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
   },
   buttonText: {
-      color: '#fff',
-      fontWeight: 'bold',
-      justifyContent: 'center'
+    color: '#fff',
+    fontWeight: 'bold',
+    justifyContent: 'center'
   },
   icon: {
     width: 32,

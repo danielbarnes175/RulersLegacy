@@ -3,14 +3,14 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import EventHistory from './components/EventHistory';
 import EventModal from './components/EventModal';
 
-export default function Main({ eventHistory, modalVisible, currentEvent, handleClose }) {
+export default function Main({ eventHistory, modalVisible, currentEvent, handleClose, player }) {
   return (
     <View style={styles.scrollView}>
       <Text style={styles.header}>Events</Text>
       <ScrollView>
-      <EventHistory eventHistory={eventHistory} />
+        <EventHistory eventHistory={eventHistory} />
       </ScrollView>
-      <EventModal visible={modalVisible} event={currentEvent} handleClose={handleClose} />
+      <EventModal visible={modalVisible} event={currentEvent} handleClose={handleClose} player={player} />
     </View>
   );
 }

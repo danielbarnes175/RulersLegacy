@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
 
-export default function EventModal({ visible, event, handleClose }) {
+export default function EventModal({ visible, event, handleClose, player }) {
   if (event) {
     return (
-      <View style={styles.container} visible={visible} backdropColor = {'white'}
-      backdropOpacity = {1} >
+      <View style={styles.container} visible={visible} backdropColor={'white'}
+        backdropOpacity={1} >
         <View style={styles.modalView}>
           <Text style={styles.title}>{event.name}</Text>
           <View style={styles.divider}></View>
@@ -14,7 +14,7 @@ export default function EventModal({ visible, event, handleClose }) {
           {event.choices.map((choice, i) => (
             <Button key={i} title={choice.text} onPress={() => {
               handleClose();
-              choice.effect();
+              choice.effect(player);
             }} />
           ))}
         </View>

@@ -1,13 +1,18 @@
+import maleWhitePortrait from 'assets/portraits/male/white.jpg';
+import maleBlackPortrait from 'assets/portraits/male/black.jpg';
+import femaleWhitePortrait from 'assets/portraits/female/white.jpg';
+import femaleBlackPortrait from 'assets/portraits/female/black.jpg';
+
 export const malePortraitMapping = [
     {
         id: 1,
         name: 'white-brownhair-shaved',
-        imageLink: require('assets/portraits/male/white.jpg')
+        imageLink: maleWhitePortrait
     },
     {
         id: 2,
         name: 'white-blackhair-shaved',
-        imageLink: require('assets/portraits/male/black.jpg')
+        imageLink: maleBlackPortrait
     },
 ]
 
@@ -15,11 +20,11 @@ export const femalePortraitMapping = [
     {
         id: 1,
         name: 'white-brownhair',
-        imageLink: require('assets/portraits/female/white.jpg')
+        imageLink: femaleWhitePortrait
     },
     {
         id: 2,
         name: 'white-blackhair',
-        imageLink: require('assets/portraits/female/black.jpg')
+        imageLink: femaleBlackPortrait
     },
 ]

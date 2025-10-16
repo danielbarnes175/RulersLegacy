@@ -6,19 +6,19 @@ export default class Community {
         this.name = 'placeholder';
         this.people = [];
         this.currentLeader = '',
-        this.resources = {
-            gold: 0,
-            prestige: 0,
-        }
+            this.resources = {
+                gold: 0,
+                prestige: 0,
+            }
         this.laws = {
 
         }
         this.culture = {
 
         },
-        this.military = {
-            soldiers: 0
-        }
+            this.military = {
+                soldiers: 0
+            }
 
         for (const key in properties) {
             if (properties.hasOwnProperty(key)) {

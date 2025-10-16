@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState,  useEffect } from 'react';
 
-export default TitleScreen = ({ navigation }) => {
+const TitleScreen = ({ navigation }) => {
     const handleNewGamePress = () => {
       navigation.navigate('CharacterSelection');
     };
@@ -45,3 +45,5 @@ export default TitleScreen = ({ navigation }) => {
       fontWeight: 'bold',
     },
   });
+
+export default TitleScreen;
